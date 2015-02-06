@@ -4,7 +4,7 @@
 #' @return data frame com nome da base e os resumos extraidos dessa base
 #' @author Ivan L M Ricarte
 #' @export
-getBases <- function(resumos) {
+extrairBases <- function(resumos) {
     # lista de todas as bases de evidências efetivamente utilizadas
     bases <- split(resumos$record_id,resumos$base.factor, drop=TRUE)
     qtbases <- length(bases)
