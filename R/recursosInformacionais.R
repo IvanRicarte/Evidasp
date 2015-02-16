@@ -7,13 +7,13 @@
 recursosInformacionais <- function(inscritos) {
     require(broman)
     # Recursos
-    recursos <- c("Artigos cientÃ­ficos", "Bases de dados bibliogrÃ¡ficas",
-                  "Bases de evidÃªncias", "Conhecimento prÃ³prio",
-                  "DicionÃ¡rios, terminologias e classificaÃ§Ãµes",
-                  "Diretrizes clÃ­nicas", "Eventos", "Livros",
-                  "Mecanismos de busca", "Outros profissionais da saÃºde",
-                  "Paciente", "Portal SaÃºde Baseada em EvidÃªncia",
-                  "ProntuÃ¡rio do paciente", "Sites especializados",
+    recursos <- c("Artigos científicos", "Bases de dados bibliográficas",
+                  "Bases de evidências", "Conhecimento próprio",
+                  "Dicionários, terminologias e classificações",
+                  "Diretrizes clínicas", "Eventos", "Livros",
+                  "Mecanismos de busca", "Outros profissionais da saúde",
+                  "Paciente", "Portal Saúde Baseada em Evidência",
+                  "Prontuário do paciente", "Sites especializados",
                   "Outros recursos")
     niveis <- factor(recursos, levels=recursos)
     # Usos declarados
@@ -32,7 +32,5 @@ recursosInformacionais <- function(inscritos) {
              sum(inscritos$recursos___23),
              sum(inscritos$recursos___24),
              sum(inscritos$recursos___99))
-    pct <- 100 * qtd / nrow(inscritos)
-    pctl <- myround(pct,1)
-    data.frame(Nivel=niveis,Freq=qtd,Porcent=pct,PorcentLab=pctl)
+    data.frame(Nivel=niveis,Freq=qtd)
 }

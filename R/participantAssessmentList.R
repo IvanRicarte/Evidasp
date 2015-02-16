@@ -10,7 +10,7 @@ participantAssessmentList <- function(fullDataset, drop=TRUE) {
     # extract info from full data set
     part <- subset(fullDataset, nome!="", select=c(record_id,nome,cpf))
     # name and document number formatting
-    part$nome <- formataNomes(as.vector(part$nome))
+    part$nome <- formatName(as.vector(part$nome))
     part$cpf <- formataCPF(as.vector(part$cpf))
     cpfOk <- verificaCPF(part$cpf)
     part <- cbind(part,CpfOk=cpfOk)
@@ -25,27 +25,8 @@ participantAssessmentList <- function(fullDataset, drop=TRUE) {
     if (drop==TRUE)
         part <- subset(part, ResAval > 0)
     
-    names(part) <- c("id", "name", "cpf", "validcpf", "assessments")
+    names(part) <- c("pid", "name", "cpf", "validcpf", "assessments")
     part
-}
-
-#' Ajusta maiusculas e minusculas nos nomes 
-#' 
-#' @param nomes vetor de nomes com grafia do instrumento
-#' @return vetor de nomes com grafia ajustada
-#' @author Ivan L M Ricarte
-formataNomes <- function(nomes) {
-    Encoding(nomes) <- 'UTF-8'
-    nomes <- gsub("\\.", " ", nomes)
-    nomes <- gsub("  ", " ", nomes)
-    cnomes <- sapply(nomes, function(strn)
-    { s <- strsplit(strn, "\\s")[[1]]
-      paste0(toupper(substring(s, 1,1)), 
-             tolower(substring(s, 2)),
-             collapse=" ")}, USE.NAMES=FALSE)
-    for (s in c(" De ", " Da ", " Dos ", " Das "))
-        cnomes <- gsub(s, tolower(s), cnomes)
-    cnomes
 }
 
 #' Ajusta formatacao de CPF 
@@ -54,7 +35,7 @@ formataNomes <- function(nomes) {
 #' @return vetor de CPF com formato ajustado
 #' @author Ivan L M Ricarte
 formataCPF <- function(cpfs) {
-    # remover nÃ£o dÃ­gitos
+    # remover não dígitos
     numcpf <- gsub("[ \\.\\-/]", "", cpfs, perl=TRUE)
     # limitar comprimento em 11 digitos
     numcpf <- as.vector(
@@ -70,13 +51,13 @@ formataCPF <- function(cpfs) {
                 s
             s
     }))
-    # incluir ponto e traÃ§o
+    # incluir ponto e traço
     verif <- paste0("-",substr(numcpf,10,11))
     numcpf <- paste(substr(numcpf,1,3), substr(numcpf,4,6), substr(numcpf,7,9),sep=".")
     numcpf <- paste0(numcpf,verif)
 }
 
-#' Verifica dÃ­gitos de um CPF  
+#' Verifica dígitos de um CPF  
 #' 
 #' @param cpf um CPF no formato ###.###.###-##
 #' @return TRUE se digitos verificadores estao coerentes com CPF
@@ -85,7 +66,7 @@ verificaCPF <- function(cpf) {
     # digitos verificadores declarados
     d1 <- as.integer(substr(cpf,13,13))
     d2 <- as.integer(substr(cpf,14,14))
-    # cÃ¡lculo dos dÃ­gitos verificadores
+    # cálculo dos dígitos verificadores
     rem1 <- (10*as.integer(substr(cpf,1,1)) +
         9*as.integer(substr(cpf,2,2)) +
         8*as.integer(substr(cpf,3,3)) +

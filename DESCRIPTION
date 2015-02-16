@@ -7,4 +7,4 @@ Author: Ivan L M Ricarte <ricarte@unicamp.br>
 Maintainer: Ivan L M Ricarte <ricarte@unicamp.br>
 Description: Funtions to analyze data (from REDCap) for Evid@SP Project
 License: MIT
-Depends: lubridate, ggplot2, broman, dplyr
+Depends: lubridate, ggplot2, broman, dplyr, RCurl, bitops

@@ -14,20 +14,23 @@ professionalData <- function(fullDataset) {
                 area_atuacao___2, area_atuacao___3, area_atuacao___9,
                tempo_atuacao) %>%
         mutate(prof = ifelse(profissao==6, "Assistente social", 
-                          ifelse(profissao==7, "BiomÃ©dico", 
+                          ifelse(profissao==7, "Biomédico", 
                                  ifelse(profissao==8, "Enfermeiro",
-                                        ifelse(profissao==9, "FarmacÃªutico", 
+                                        ifelse(profissao==9, "Farmacêutico", 
                                                ifelse(profissao==10, "Fisioterapeuta", 
-                                                      ifelse(profissao==11, "FonoaudiÃ³logo",
-                                                             ifelse(profissao==12, "MÃ©dico", 
+                                                      ifelse(profissao==11, "Fonoaudiólogo",
+                                                             ifelse(profissao==12, "Médico", 
                                                                     ifelse(profissao==13, "Nutricionista",
-                                                                           ifelse(profissao==14, "OdontÃ³logo",
-                                                                                  ifelse(profissao==15, "PsicÃ³logo", 
+                                                                           ifelse(profissao==14, "Odontólogo",
+                                                                                  ifelse(profissao==15, "Psicólogo", 
                                                                                          ifelse(profissao==16, "Terapeuta ocupacional",
-                                                                                                formataNomes(as.character(outra_profissao))
-                                                                                         )))))))))))) %>%
+                                                                                                ifelse(profissao==17, "Educador físico", 
+                                                                                                       ifelse(profissao==18, "Professor universitário",
+                                                                                                              ifelse(profissao==19, "Pesquisador",
+                                                                                                                     formatName(as.character(outra_profissao))
+                                                                                         ))))))))))))))) %>%
        mutate(exper = as.numeric(gsub("[^0-9]*([0-9]+).*$", "\\1", tempo_atuacao))) %>%
-        select(id=record_id,profissao=prof,especialidade,
+        select(pid=record_id,profissao=prof,especialidade,
                municipio=inicio_municipio,experiencia=exper,
                maismedicos=maismedicos1,atencaoprimaria=area_atuacao___1,
                atencaosecundaria=area_atuacao___2,atencaoterciaria=area_atuacao___3)
