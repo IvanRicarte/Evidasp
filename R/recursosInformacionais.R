@@ -4,17 +4,24 @@
 #' @return data frame com quantidade de respostas por opcao
 #' @author Ivan L M Ricarte
 #' @export
-recursosInformacionais <- function(inscritos) {
-    require(broman)
+recursosInformacionais <- function(fullDataset) {
+    # extract professional data
+    inscritos <- fullDataset %>%
+        filter(redcap_event_name=="inscricao_arm_1", tcle_concord==1, 
+               !is.na(profissao)) %>%
+        select(recursos___11, recursos___12, recursos___13, recursos___14,
+               recursos___15, recursos___16, recursos___17, recursos___18,
+               recursos___19, recursos___20, recursos___21, recursos___22, 
+               recursos___23, recursos___24, recursos___99)
     # Recursos
-    recursos <- c("Artigos científicos", "Bases de dados bibliográficas",
-                  "Bases de evidências", "Conhecimento próprio",
-                  "Dicionários, terminologias e classificações",
-                  "Diretrizes clínicas", "Eventos", "Livros",
-                  "Mecanismos de busca", "Outros profissionais da saúde",
-                  "Paciente", "Portal Saúde Baseada em Evidência",
-                  "Prontuário do paciente", "Sites especializados",
-                  "Outros recursos")
+    recursos <- c("Scientific papers", "Bibliographic databases",
+                  "Evidence databases", "Self knowledge",
+                  "Dictionaries, terminologies and classifications",
+                  "Clinical guidelines", "Events", "Books",
+                  "Search engines", "Other health professionals",
+                  "Patient", "Brazilian portal health-based evidence",
+                  "Patient record", "Web speciliazed sites",
+                  "Other resources")
     niveis <- factor(recursos, levels=recursos)
     # Usos declarados
     qtd <- c(sum(inscritos$recursos___11),
@@ -32,5 +39,5 @@ recursosInformacionais <- function(inscritos) {
              sum(inscritos$recursos___23),
              sum(inscritos$recursos___24),
              sum(inscritos$recursos___99))
-    data.frame(Nivel=niveis,Freq=qtd)
+    df <- data.frame(Nivel=niveis,Freq=qtd)
 }
