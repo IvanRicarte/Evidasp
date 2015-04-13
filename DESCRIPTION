@@ -2,7 +2,7 @@ Package: evidasp
 Type: Package
 Title: Funtions to analyze data (from REDCap) for Evid@SP Project
 Version: 1.1
-Date: 2015-02-14
+Date: 2015-04-13
 Author: Ivan L M Ricarte <ricarte@unicamp.br>
 Maintainer: Ivan L M Ricarte <ricarte@unicamp.br>
 Description: Funtions to analyze data (from REDCap) for Evid@SP Project
